@@ -213,6 +213,12 @@ class TestRunner:
 
         return res
 
+    def isTestClass(self, tstCls):
+        for name in dir(tstCls):
+            if name.startswith("test"):
+                return True
+        return False
+
 class TestResult:
     def __init__(self):
         self.errorsNum = 0
