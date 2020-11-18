@@ -200,7 +200,11 @@ class TestSuite:
 class TestRunner:
     def run(self, suite):
         res = TestResult()
-        suite.run(res)
+        for c in suite._tests:
+            if self.isTestClass(c):
+                c.setUpClass()
+                res.exceptions.extend(run_suite(c, res))
+                c.tearDownClass()
 
         print("Ran %d tests\n" % res.testsRun)
         if res.failuresNum > 0 or res.errorsNum > 0:
